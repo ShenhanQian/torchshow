@@ -387,7 +387,10 @@ def vis_grayscale(x, **kwargs):
     vis['disp'] = x
     cmap = kwargs.get("cmap", "gray")
     plot_cfg = dict(cmap=cmap)
-    
+
+    plot_cfg['vmin'] = kwargs.get("vmin", None)
+    plot_cfg['vmax'] = kwargs.get("vmax", None)
+
     if isinteger(np.unique(x)).all():
         plot_cfg['interpolation'] = 'nearest'
         vis['mode'] = 'Binary'
