@@ -117,7 +117,11 @@ def display_plt(vis_list, **kwargs):
     title_namespace = {}
     
     fig = plt.figure(figsize=figsize, dpi=dpi)
-    axes = fig.subplots(nrows=nrows, ncols=ncols, squeeze=False)
+    if nrows > 1 or ncols > 1:
+        axes = fig.subplots(nrows=nrows, ncols=ncols, squeeze=False)
+    else:
+        axes = np.array([[plt.Axes(fig, [0., 0., 1., 1.])]])
+        fig.add_axes(axes[0, 0])
     show_rich_info = config.get('show_rich_info')
     # fig, axes = plt.subplots(nrows=nrows, ncols=ncols, squeeze=False)
     set_window_title(fig, 'TorchShow')
