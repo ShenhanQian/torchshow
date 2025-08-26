@@ -117,7 +117,8 @@ def display_plt(vis_list, **kwargs):
     title_namespace = {}
     
     fig = plt.figure(figsize=figsize, dpi=dpi)
-    if nrows > 1 or ncols > 1:
+    has_multiple_axes = nrows > 1 or ncols > 1
+    if has_multiple_axes:
         axes = fig.subplots(nrows=nrows, ncols=ncols, squeeze=False)
     else:
         axes = np.array([[plt.Axes(fig, [0., 0., 1., 1.])]])
@@ -148,7 +149,7 @@ def display_plt(vis_list, **kwargs):
         for ax in axes.ravel():
             ax.axis('off')
             
-    if tight_layout:
+    if has_multiple_axes and tight_layout:
         fig.tight_layout()
     
     if kwargs.get('save', False):
